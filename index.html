@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de IMC</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 32px 24px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 380px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333333;
+      margin-bottom: 24px;
+      font-size: 24px;
+    }
+
+    .input-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #555555;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cccccc;
+      border-radius: 6px;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      border-color: #0066cc;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #btn-calcular {
+      background-color: #0066cc;
+      color: #ffffff;
+    }
+
+    #btn-limpar {
+      background-color: #e0e0e0;
+      color: #333333;
+    }
+
+    #resultado {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 6px;
+      text-align: center;
+      display: none;
+    }
+
+    .imc-valor {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .imc-classificacao {
+      font-size: 15px;
+    }
+
+    /* Cores de status */
+    .baixo-peso { background-color: #e3f2fd; color: #0d47a1; }
+    .peso-normal { background-color: #e8f5e9; color: #1b5e20; }
+    .sobrepeso { background-color: #fffde7; color: #f57f17; }
+    .obesidade { background-color: #ffebee; color: #b71c1c; }
+    .erro { background-color: #ffebee; color: #b71c1c; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Calculadora de IMC</h1>
+
+    <form id="imc-form">
+      <div class="input-group">
+        <label for="peso">Peso (kg)</label>
+        <input type="number" id="peso" placeholder="Ex: 70.5" step="0.1" min="1" required>
+      </div>
+
+      <div class="input-group">
+        <label for="altura">Altura (m ou cm)</label>
+        <input type="number" id="altura" placeholder="Ex: 1.75 ou 175" step="0.01" min="0.5" required>
+      </div>
+
+      <div class="buttons">
+        <button type="submit" id="btn-calcular">Calcular</button>
+        <button type="button" id="btn-limpar">Limpar</button>
+      </div>
+    </form>
+
+    <div id="resultado"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('imc-form');
+    const pesoInput = document.getElementById('peso');
+    const alturaInput = document.getElementById('altura');
+    const resultadoDiv = document.getElementById('resultado');
+    const btnLimpar = document.getElementById('btn-limpar');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const peso = parseFloat(pesoInput.value.replace(',', '.'));
+      let altura = parseFloat(alturaInput.value.replace(',', '.'));
+
+      if (isNaN(peso) || isNaN(altura) || peso <= 0 || altura <= 0) {
+        exibirMensagem('Por favor, insira valores válidos.', '', 'erro');
+        return;
+      }
+
+      // Converte automaticamente caso o usuário digite em centímetros (ex: 175 -> 1.75)
+      if (altura > 3) {
+        altura = altura / 100;
+      }
+
+      const imc = peso / (altura * altura);
+      const imcFormatado = imc.toFixed(2).replace('.', ',');
+
+      let classificacao = '';
+      let classeCss = '';
+
+      if (imc < 18.5) {
+        classificacao = 'Abaixo do peso';
+        classeCss = 'baixo-peso';
+      } else if (imc < 25) {
+        classificacao = 'Peso normal';
+        classeCss = 'peso-normal';
+      } else if (imc < 30) {
+        classificacao = 'Sobrepeso';
+        classeCss = 'sobrepeso';
+      } else if (imc < 35) {
+        classificacao = 'Obesidade Grau I';
+        classeCss = 'obesidade';
+      } else if (imc < 40) {
+        classificacao = 'Obesidade Grau II';
+        classeCss = 'obesidade';
+      } else {
+        classificacao = 'Obesidade Grau III';
+        classeCss = 'obesidade';
+      }
+
+      exibirMensagem(`IMC: ${imcFormatado}`, `Classificação: ${classificacao}`, classeCss);
+    });
+
+    btnLimpar.addEventListener('click', function() {
+      form.reset();
+      resultadoDiv.style.display = 'none';
+      resultadoDiv.className = '';
+      pesoInput.focus();
+    });
+
+    function exibirMensagem(titulo, subtitulo, classeCss) {
+      resultadoDiv.className = classeCss;
+      resultadoDiv.innerHTML = `
+        <div class="imc-valor">${titulo}</div>
+        ${subtitulo ? `<div class="imc-classificacao">${subtitulo}</div>` : ''}
+      `;
+      resultadoDiv.style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
