@@ -1,223 +1,217 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora de IMC</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+---
+name: Galactic Medical Telemetry
+colors:
+  surface: '#10131c'
+  surface-dim: '#10131c'
+  surface-bright: '#363943'
+  surface-container-lowest: '#0b0e17'
+  surface-container-low: '#181b25'
+  surface-container: '#1c1f29'
+  surface-container-high: '#272a34'
+  surface-container-highest: '#32343f'
+  on-surface: '#e0e2ef'
+  on-surface-variant: '#bdc8d1'
+  inverse-surface: '#e0e2ef'
+  inverse-on-surface: '#2d303a'
+  outline: '#87929b'
+  outline-variant: '#3e4850'
+  surface-tint: '#82cfff'
+  primary: '#82cfff'
+  on-primary: '#00344b'
+  primary-container: '#00aeef'
+  on-primary-container: '#003e58'
+  inverse-primary: '#00658d'
+  secondary: '#e9c349'
+  on-secondary: '#3c2f00'
+  secondary-container: '#af8d11'
+  on-secondary-container: '#342800'
+  tertiary: '#c1c6db'
+  on-tertiary: '#2a3040'
+  tertiary-container: '#9da2b6'
+  on-tertiary-container: '#333949'
+  error: '#ffb4ab'
+  on-error: '#690005'
+  error-container: '#93000a'
+  on-error-container: '#ffdad6'
+  primary-fixed: '#c6e7ff'
+  primary-fixed-dim: '#82cfff'
+  on-primary-fixed: '#001e2d'
+  on-primary-fixed-variant: '#004c6b'
+  secondary-fixed: '#ffe088'
+  secondary-fixed-dim: '#e9c349'
+  on-secondary-fixed: '#241a00'
+  on-secondary-fixed-variant: '#574500'
+  tertiary-fixed: '#dde2f7'
+  tertiary-fixed-dim: '#c1c6db'
+  on-tertiary-fixed: '#151b2b'
+  on-tertiary-fixed-variant: '#414658'
+  background: '#10131c'
+  on-background: '#e0e2ef'
+  surface-variant: '#32343f'
+typography:
+  display-lg:
+    fontFamily: Space Grotesk
+    fontSize: 48px
+    fontWeight: '700'
+    lineHeight: 56px
+    letterSpacing: 0.08em
+  display-lg-mobile:
+    fontFamily: Space Grotesk
+    fontSize: 32px
+    fontWeight: '700'
+    lineHeight: 40px
+    letterSpacing: 0.06em
+  headline-lg:
+    fontFamily: Space Grotesk
+    fontSize: 28px
+    fontWeight: '600'
+    lineHeight: 36px
+    letterSpacing: 0.05em
+  headline-sm:
+    fontFamily: Space Grotesk
+    fontSize: 20px
+    fontWeight: '600'
+    lineHeight: 28px
+    letterSpacing: 0.04em
+  title-md:
+    fontFamily: Space Grotesk
+    fontSize: 16px
+    fontWeight: '600'
+    lineHeight: 24px
+    letterSpacing: 0.06em
+  body-lg:
+    fontFamily: Inter
+    fontSize: 16px
+    fontWeight: '400'
+    lineHeight: 24px
+    letterSpacing: 0.01em
+  body-md:
+    fontFamily: Inter
+    fontSize: 14px
+    fontWeight: '400'
+    lineHeight: 20px
+    letterSpacing: 0.01em
+  telemetry-data:
+    fontFamily: Space Grotesk
+    fontSize: 14px
+    fontWeight: '700'
+    lineHeight: 18px
+    letterSpacing: 0.12em
+  label-caps:
+    fontFamily: Space Grotesk
+    fontSize: 11px
+    fontWeight: '700'
+    lineHeight: 16px
+    letterSpacing: 0.15em
+  label-sm:
+    fontFamily: Inter
+    fontSize: 11px
+    fontWeight: '500'
+    lineHeight: 14px
+    letterSpacing: 0.02em
+rounded:
+  sm: 0.125rem
+  DEFAULT: 0.25rem
+  md: 0.375rem
+  lg: 0.5rem
+  xl: 0.75rem
+  full: 9999px
+spacing:
+  gutter: 1rem
+  gutter-desktop: 1.5rem
+  margin: 1rem
+  margin-desktop: 2rem
+  space-xs: 0.25rem
+  space-sm: 0.5rem
+  space-md: 1rem
+  space-lg: 1.5rem
+  space-xl: 2.5rem
+---
 
-    body {
-      background-color: #f0f2f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 16px;
-    }
+## Brand & Style
 
-    .container {
-      background-color: #ffffff;
-      padding: 32px 24px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 380px;
-    }
+This design system translates the clinical, militaristic telemetry of a starship cockpit into a galactic health and biometric diagnostic station. Designed for pilots, troopers, and fleet commanders, the interface communicates vital diagnostic data with cold precision, tactical clarity, and absolute authority.
 
-    h1 {
-      text-align: center;
-      color: #333333;
-      margin-bottom: 24px;
-      font-size: 24px;
-    }
+The aesthetic fuses **Utilitarian Military Sci-Fi** with **Tactical Holographic Glassmorphism**:
+- **Tactical Cockpit HUD:** High-density readouts, status quadrants, monospaced diagnostic telemetry, and strict grid alignments mirror advanced avionics consoles.
+- **Translucent Holographic Substrates:** Panels exist as physical projected glass within the cockpit, utilizing deep cosmic navy bases with delicate cyan luminescent boundaries.
+- **Diagnostic Triage Colorway:** Functional illumination isolates bio-metrics instantly—cyan denotes operational stability, amber/gold denotes caution and command thresholds, while deep space voids ensure high optical contrast under emergency conditions.
 
-    .input-group {
-      margin-bottom: 16px;
-    }
+## Colors
 
-    label {
-      display: block;
-      margin-bottom: 6px;
-      color: #555555;
-      font-size: 14px;
-      font-weight: bold;
-    }
+The palette is engineered strictly for darkened cockpit environments, ensuring zero visual fatigue while elevating high-priority biometric telemetry.
 
-    input {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid #cccccc;
-      border-radius: 6px;
-      font-size: 16px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
+### Primary Role: Holo-Cyan (`#00AEEF`)
+The primary system light source. Used for active diagnostics, biometric waveforms, scan lines, key calls-to-action, active radio/checkbox states, and luminous focal points.
 
-    input:focus {
-      border-color: #0066cc;
-    }
+### Secondary Role: Imperial Gold / Tactical Amber (`#D4AF37`)
+A command-tier accent indicating physiological alerts, threshold boundaries, biometric warnings (e.g., BMI risk factors, elevated heart rate), and authenticated clearance tiers.
 
-    .buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
+### Structural Neutral & Substrates
+- **Deep Space Black (`#080B14`):** Canvas backdrop representing unlit cockpit space.
+- **Cosmic Navy (`#0D1322`):** Base layer for telemetry containers, side-docks, and biometric card surfaces.
+- **Translucent Holo Surface:** `rgba(13, 19, 34, 0.75)` with `backdrop-filter: blur(12px)`.
+- **Holo-Cyan Border Stroke:** `1px solid rgba(0, 174, 239, 0.30)`.
+- **High-Alert Crimson (`#FF3B30`):** Reserved exclusively for critical biological failure, extreme BMI divergence, and terminal warnings.
+- **Subdued Phosphor Neutral (`#8A99AD`):** Used for non-active coordinate readouts, telemetry timestamps, and secondary metric labels.
 
-    button {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
+## Typography
 
-    button:hover {
-      opacity: 0.9;
-    }
+The typographic hierarchy enforces tactical discipline. Display headings, metric readouts, and status codes leverage **Space Grotesk** for its technical, angular proportions and military avionics rhythm. Body analysis, clinical notes, and dense physiological diagnoses rely on **Inter** to ensure micro-legibility at varying viewing distances.
 
-    #btn-calcular {
-      background-color: #0066cc;
-      color: #ffffff;
-    }
+### Typographic Rules:
+- **Telemetry Encodings & Labels:** All telemetry tags, metric parameters (e.g., `BMI_INDEX`, `HEART_RATE_BPM`, `O2_SAT`), and section anchors must render in uppercase with expanded tracking (`0.12em` to `0.15em`).
+- **Telemetry Readouts:** Numerical outputs utilize tabular figures for dynamic metric stability during active scanning.
 
-    #btn-limpar {
-      background-color: #e0e0e0;
-      color: #333333;
-    }
+## Layout & Spacing
 
-    #resultado {
-      margin-top: 24px;
-      padding: 16px;
-      border-radius: 6px;
-      text-align: center;
-      display: none;
-    }
+The interface functions on a rigid, high-density modular 12-column grid resembling an active flight console.
 
-    .imc-valor {
-      font-size: 22px;
-      font-weight: bold;
-      margin-bottom: 4px;
-    }
+### Structural Rhythm
+- **Modular Cockpit Quadrants:** Telemetry layouts must arrange into structured cockpit panels (Left Dock: Diagnostic History; Center: Vital Hologram/BMI Matrix; Right Dock: Sensor Stream).
+- **Responsive Adaptations:**
+  - **Desktop (1024px+):** Full 12-column telemetry array with persistent status rails and biometric radar grids.
+  - **Tablet (768px - 1023px):** 8-column layout; left and right diagnostic docks reflow into stacked collapsible drawer consoles.
+  - **Mobile (<768px):** 4-column single-stream telemetry stack; priority order locks Center Bio-Gauge first, followed by tactical metric inputs and health summary drawers.
 
-    .imc-classificacao {
-      font-size: 15px;
-    }
+## Elevation & Depth
 
-    /* Cores de status */
-    .baixo-peso { background-color: #e3f2fd; color: #0d47a1; }
-    .peso-normal { background-color: #e8f5e9; color: #1b5e20; }
-    .sobrepeso { background-color: #fffde7; color: #f57f17; }
-    .obesidade { background-color: #ffebee; color: #b71c1c; }
-    .erro { background-color: #ffebee; color: #b71c1c; }
-  </style>
-</head>
-<body>
+Spatial separation relies on holographic layering, luminescence, and glass refraction rather than traditional diffuse drop-shadows.
 
-  <div class="container">
-    <h1>Calculadora de IMC</h1>
+### The Holo-Stack Hierarchy:
+1. **Base Cockpit Canvas (Void):** `#080B14` flat background with faint tactical 32px square grid lines rendered in `rgba(0, 174, 239, 0.04)`.
+2. **Standard Holo-Panel (Level 1):** Background `rgba(13, 19, 34, 0.65)` with `backdrop-filter: blur(16px)` and perimeter border `1px solid rgba(0, 174, 239, 0.25)`.
+3. **Elevated Sensor Pod (Level 2):** Background `rgba(13, 19, 34, 0.85)` with `backdrop-filter: blur(20px)`, border `1px solid rgba(0, 174, 239, 0.50)`, and an inner ambient glow: `box-shadow: inset 0 0 16px rgba(0, 174, 239, 0.12)`.
+4. **Critical Alert / Active Targeting (Overlay):** Background `rgba(13, 19, 34, 0.95)`, border `1px solid #D4AF37`, and external beam glow: `box-shadow: 0 0 24px rgba(212, 175, 55, 0.35)`.
 
-    <form id="imc-form">
-      <div class="input-group">
-        <label for="peso">Peso (kg)</label>
-        <input type="number" id="peso" placeholder="Ex: 70.5" step="0.1" min="1" required>
-      </div>
+## Shapes
 
-      <div class="input-group">
-        <label for="altura">Altura (m ou cm)</label>
-        <input type="number" id="altura" placeholder="Ex: 1.75 ou 175" step="0.01" min="0.5" required>
-      </div>
+The physical silhouette is industrial, angular, and functional. Elements use soft `0.25rem` corners to prevent optical glare while maintaining an armored, precision-machined edge.
 
-      <div class="buttons">
-        <button type="submit" id="btn-calcular">Calcular</button>
-        <button type="button" id="btn-limpar">Limpar</button>
-      </div>
-    </form>
+- **Chamfered Cockpit Accents:** High-level biometric cards feature 45-degree clipped corners (chamfers) achieved via clipping paths (`clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%)`) to enhance the starship instrumentation appearance.
+- **Sensor Grids & Dividers:** Separators are razor-thin `1px` lines accented with intermittent tick marks or crosshair motifs at intersections.
 
-    <div id="resultado"></div>
-  </div>
+## Components
 
-  <script>
-    const form = document.getElementById('imc-form');
-    const pesoInput = document.getElementById('peso');
-    const alturaInput = document.getElementById('altura');
-    const resultadoDiv = document.getElementById('resultado');
-    const btnLimpar = document.getElementById('btn-limpar');
+### Telemetry Buttons
+- **Primary (Execute Scan / Commit Analysis):** Background `rgba(0, 174, 239, 0.15)`, border `1px solid #00AEEF`, text `#00AEEF`, uppercase `Space Grotesk` font. Active hover triggers solid `#00AEEF` background with `#080B14` text and `0 0 16px rgba(0, 174, 239, 0.60)` external bloom.
+- **Command / Alert Tier:** Background `rgba(212, 175, 55, 0.12)`, border `1px solid #D4AF37`, text `#D4AF37`. Hover yields amber bloom `0 0 16px rgba(212, 175, 55, 0.50)`.
+- **Secondary (Calibrate / Abort):** Ghost button with border `1px solid rgba(138, 153, 173, 0.30)`, text `#8A99AD`.
 
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
+### Telemetry Status Indicators & Chips
+- Miniature rectangular badges with fixed height (`22px`), uppercase `label-caps` typography, and leading pulsing status pip:
+  - **Optimal (Normal BMI):** Cyan border, cyan text, breathing dot (`#00AEEF`).
+  - **Warning (Over/Under Mass):** Amber border, amber text, steady dot (`#D4AF37`).
+  - **Critical (Hazardous Bio-Variance):** Crimson border, crimson text, rapid flashing dot (`#FF3B30`).
 
-      // Lê o peso e a altura; troca a vírgula por ponto para o JavaScript entender decimais.
-      const peso = parseFloat(pesoInput.value.replace(',', '.'));
-      let altura = parseFloat(alturaInput.value.replace(',', '.'));
+### Input Fields & Biometric Sliders
+- **Numeric Fields (Height, Weight, Age):** Deep cosmic navy container (`rgba(13, 19, 34, 0.90)`), bottom border `2px solid rgba(0, 174, 239, 0.40)`. Focused state illuminates the bottom border to `#00AEEF` with a soft blue horizontal underglow. Placeholder text in `#8A99AD`. Unit tags (e.g., `KG`, `CM`, `STD_ROTATION`) pinned to the right edge in uppercase `label-caps`.
+- **Telemetry Sliders:** Sleek track in `rgba(0, 174, 239, 0.20)`, dynamic fill in `#00AEEF`, and a hexagonal or angular slider thumb with intense cyan core glow.
 
-      if (isNaN(peso) || isNaN(altura) || peso <= 0 || altura <= 0) {
-        exibirMensagem('Por favor, insira valores válidos.', '', 'erro');
-        return;
-      }
+### Checkboxes & Radio Toggles
+- Custom square components (`16px`) with 1px soft corners. Unchecked: `1px solid rgba(0, 174, 239, 0.40)` over transparent background. Checked: `#00AEEF` fill with cockpit crosshair or inverted tick icon, casting a localized `0 0 8px rgba(0, 174, 239, 0.50)` halo.
 
-      // Converte automaticamente caso a altura esteja em centímetros (ex: 175 -> 1.75 m).
-      if (altura > 3) {
-        altura = altura / 100;
-      }
-
-      // O IMC é o peso em quilogramas dividido pela altura em metros ao quadrado.
-      // Multiplicar a altura por ela mesma calcula esse quadrado.
-      const imc = peso / (altura * altura);
-
-      // Mostra o resultado com duas casas decimais e vírgula, como é comum em português.
-      const imcFormatado = imc.toFixed(2).replace('.', ',');
-
-      let classificacao = '';
-      let classeCss = '';
-
-      if (imc < 18.5) {
-        classificacao = 'Abaixo do peso';
-        classeCss = 'baixo-peso';
-      } else if (imc < 25) {
-        classificacao = 'Peso normal';
-        classeCss = 'peso-normal';
-      } else if (imc < 30) {
-        classificacao = 'Sobrepeso';
-        classeCss = 'sobrepeso';
-      } else if (imc < 35) {
-        classificacao = 'Obesidade Grau I';
-        classeCss = 'obesidade';
-      } else if (imc < 40) {
-        classificacao = 'Obesidade Grau II';
-        classeCss = 'obesidade';
-      } else {
-        classificacao = 'Obesidade Grau III';
-        classeCss = 'obesidade';
-      }
-
-      exibirMensagem(`IMC: ${imcFormatado}`, `Classificação: ${classificacao}`, classeCss);
-    });
-
-    btnLimpar.addEventListener('click', function() {
-      form.reset();
-      resultadoDiv.style.display = 'none';
-      resultadoDiv.className = '';
-      pesoInput.focus();
-    });
-
-    function exibirMensagem(titulo, subtitulo, classeCss) {
-      resultadoDiv.className = classeCss;
-      resultadoDiv.innerHTML = `
-        <div class="imc-valor">${titulo}</div>
-        ${subtitulo ? `<div class="imc-classificacao">${subtitulo}</div>` : ''}
-      `;
-      resultadoDiv.style.display = 'block';
-    }
-  </script>
-
-</body>
-</html>
+### Holographic Telemetry Cards
+- Encapsulated biometric readouts (e.g., BMI Gauge Card, Body Composition Radar, Caloric Output Matrix).
+- Panels feature a top tactical bracket: a 2px horizontal accent line spanning the top-left edge with a corner-anchored coordinates label (e.g., `SEC_04 // BIO_MONITOR`).
+- Ambient back-glow on hover reinforces depth and holographic integrity.
